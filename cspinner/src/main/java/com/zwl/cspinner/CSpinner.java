@@ -2,12 +2,15 @@ package com.zwl.cspinner;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
@@ -81,14 +84,27 @@ public class CSpinner extends PopupWindow {
         return true;
     }
 
+    /**
+     * 获取屏幕高度
+     *
+     * @param context
+     * @return
+     */
+    public int getDisplayHeight(Context context) {
+        WindowManager wm = (WindowManager) context
+                .getSystemService(Context.WINDOW_SERVICE);
+        int height = wm.getDefaultDisplay().getHeight();
+        return height;
+    }
+
     @Override
     public void showAsDropDown(View anchor, int xoff, int yoff) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Rect rect = new Rect();
             anchor.getGlobalVisibleRect(rect);
-            Rect outRect1 = new Rect();
-            ((Activity) mContext).getWindow().getDecorView().getWindowVisibleDisplayFrame(outRect1);
-            int h = outRect1.height() - rect.bottom;
+            //  Rect outRect1 = new Rect();
+            // ((Activity) mContext).getWindow().getDecorView().getWindowVisibleDisplayFrame(outRect1);
+            int h = getDisplayHeight(mContext) - rect.bottom;
             mList.post(() -> {
                 int height = mList.getHeight();
                 if (height > (h - 20)) {
