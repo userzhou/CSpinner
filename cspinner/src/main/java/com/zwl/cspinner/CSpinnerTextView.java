@@ -43,7 +43,6 @@ public class CSpinnerTextView extends TextView {
         mSpinner = new CSpinner(context);
         mSpinner.setData(mDatas);
         setCompoundDrawablesWithIntrinsicBounds(0, 0, mDrawableDown, 0);
-        setPadding(getPaddingLeft(), getPaddingTop(), 10, getPaddingBottom());
         initListener();
     }
 
