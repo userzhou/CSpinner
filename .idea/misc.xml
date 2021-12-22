@@ -4,8 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/android/demo/CSpinner/app/src/main/res/layout/activity_main.xml" value="0.26856884057971014" />
+        <entry key="..\:/android/demo/CSpinner/app/src/main/res/layout/layout_fleet_searchdialog.xml" value="0.25625" />
         <entry key="..\:/android/demo/CSpinner/cspinner/src/main/res/drawable/decoration_gray_1.xml" value="0.31203703703703706" />
         <entry key="..\:/android/demo/CSpinner/cspinner/src/main/res/layout/activity_main.xml" value="0.26856884057971014" />
+        <entry key="..\:/android/demo/CSpinner/cspinner/src/main/res/layout/layout_popuplist.xml" value="0.24909420289855072" />
         <entry key="..\:/android/demo/CSpinner/cspinner/src/main/res/layout/list_item.xml" value="0.26856884057971014" />
       </map>
     </option>

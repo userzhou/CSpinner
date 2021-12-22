@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -59,11 +60,9 @@ public class CSpinner extends PopupWindow {
         setBackgroundDrawable(new BitmapDrawable());
         setFocusable(true);
         mList.setLayoutManager(new LinearLayoutManager(mContext));
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mContext, LinearLayout.VERTICAL);
-        dividerItemDecoration.setDrawable(mContext.getDrawable(R.drawable.decoration_gray_1));
-        mList.addItemDecoration(dividerItemDecoration);
         mAdapter = new SpinnerAdapter(mContext, mDatas, true);
         mList.setAdapter(mAdapter);
+        setClippingEnabled(false);
     }
 
     public void setData(List<String> data) {
@@ -99,21 +98,26 @@ public class CSpinner extends PopupWindow {
 
     @Override
     public void showAsDropDown(View anchor, int xoff, int yoff) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Rect rect = new Rect();
-            anchor.getGlobalVisibleRect(rect);
-            //  Rect outRect1 = new Rect();
-            // ((Activity) mContext).getWindow().getDecorView().getWindowVisibleDisplayFrame(outRect1);
-            int h = getDisplayHeight(mContext) - rect.bottom;
-            mList.post(() -> {
-                int height = mList.getHeight();
-                if (height > (h - 20)) {
-                    setHeight(h - 20);
-                } else {
-                    setHeight(height);
-                }
-            });
-        }
+        // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        Rect rect = new Rect();
+        anchor.getGlobalVisibleRect(rect);
+        int h = getDisplayHeight(mContext) - rect.bottom;
+
+        mList.post(() -> {
+            int height = mList.getHeight();
+            if (height > (h - 20)) {
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, h - 20);
+                params.height = h - 20;
+                mList.setLayoutParams(params);
+                //this.setHeight(h - 20);
+            } else {
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height);
+                params.height = height;
+                mList.setLayoutParams(params);
+                // this.setHeight(height);
+            }
+        });
+        // }
         super.showAsDropDown(anchor, xoff, yoff);
     }
 

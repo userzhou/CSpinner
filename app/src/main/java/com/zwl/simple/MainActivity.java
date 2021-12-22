@@ -25,8 +25,11 @@ public class MainActivity extends AppCompatActivity {
         mSpinnerText.setmDatas(mDatas)
                 .setmChoosePosition(1)
                 .setmShowRightIcon(true)
+//                .setDrawableUp(R.mipmap.ic_launcher)
+//                .setDrawableDown(R.mipmap.ic_launcher)
                 .setOnSpinnerChoosedListener((position, content) -> {
 
         });
+
     }
 }

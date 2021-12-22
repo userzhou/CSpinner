@@ -6,6 +6,13 @@
     android:paddingRight="10dp">
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#efefef" />
+
+    <TextView
+        android:textColor="#454545"
+        android:textSize="14sp"
         android:id="@+id/tv_spinner_itemtext"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -14,11 +21,11 @@
         android:text="1111" />
 
     <ImageView
-        android:src="@mipmap/icon_choose"
         android:id="@+id/iv_spinner_itemicon"
         android:layout_width="20dp"
         android:layout_height="30dp"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:src="@mipmap/icon_choose" />
 
 </RelativeLayout>

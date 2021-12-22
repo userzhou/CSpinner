@@ -19,6 +19,8 @@ public class CSpinnerTextView extends TextView {
     private CSpinner mSpinner;
     private boolean mShowRightIcon;
     private int mRightIconRes = -1;
+    private int mDrawableUp = R.mipmap.icon_select_up;
+    private int mDrawableDown = R.mipmap.icon_select_down;
     private OnSpinnerChoosedListener onSpinnerChoosedListener;
 
 
@@ -40,7 +42,7 @@ public class CSpinnerTextView extends TextView {
     private void init(Context context) {
         mSpinner = new CSpinner(context);
         mSpinner.setData(mDatas);
-        setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_select_down, 0);
+        setCompoundDrawablesWithIntrinsicBounds(0, 0, mDrawableDown, 0);
         setPadding(getPaddingLeft(), getPaddingTop(), 10, getPaddingBottom());
         initListener();
     }
@@ -49,13 +51,13 @@ public class CSpinnerTextView extends TextView {
         setOnClickListener(v -> {
             if (mSpinner.isShowing()) {
                 mSpinner.dismiss();
-                setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_select_down, 0);
+                setCompoundDrawablesWithIntrinsicBounds(0, 0, mDrawableDown, 0);
             } else {
                 mSpinner.showDropDown(v);
-                setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_select_up, 0);
+                setCompoundDrawablesWithIntrinsicBounds(0, 0, mDrawableUp, 0);
             }
         });
-        mSpinner.setOnDismissListener(() -> setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_select_down, 0));
+        mSpinner.setOnDismissListener(() -> setCompoundDrawablesWithIntrinsicBounds(0, 0, mDrawableDown, 0));
         mSpinner.setOnItemClickListener(position -> {
             mChoosePosition = position;
             String content = mDatas.get(position);
@@ -65,6 +67,17 @@ public class CSpinnerTextView extends TextView {
                 onSpinnerChoosedListener.onChoosed(mChoosePosition, content);
             }
         });
+    }
+
+    public CSpinnerTextView setDrawableUp(int drawableUp) {
+        this.mDrawableUp = drawableUp;
+        return this;
+    }
+
+    public CSpinnerTextView setDrawableDown(int drawableDown) {
+        this.mDrawableDown = drawableDown;
+        setCompoundDrawablesWithIntrinsicBounds(0, 0, mDrawableDown, 0);
+        return this;
     }
 
     public CSpinnerTextView setmShowRightIcon(boolean showRightIcon) {

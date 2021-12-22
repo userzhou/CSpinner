@@ -10,7 +10,6 @@
         android:id="@+id/spinner_textvre"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_marginLeft="30dp"
         android:layout_marginTop="30dp"
         android:background="#efefef"
         android:gravity="center_vertical"
