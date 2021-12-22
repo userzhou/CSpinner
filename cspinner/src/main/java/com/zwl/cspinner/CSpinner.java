@@ -30,6 +30,7 @@ public class CSpinner extends PopupWindow {
     private boolean mShowRightIcon;
     private int mChoosedPosition;
     private int mRightIconRes = -1;
+    private View contentView;
 
     public CSpinner(Context context) {
         super(context);
@@ -53,16 +54,16 @@ public class CSpinner extends PopupWindow {
 
     private void initView(Context context) {
         this.mContext = context;
-        View view = LayoutInflater.from(mContext).inflate(R.layout.layout_popuplist, null, false);
-        mList = view.findViewById(R.id.lv_list);
-        setContentView(view);
+        contentView = LayoutInflater.from(mContext).inflate(R.layout.layout_popuplist, null, false);
+        mList = contentView.findViewById(R.id.lv_list);
+        setClippingEnabled(false);
+        setContentView(contentView);
         setOutsideTouchable(true);
         setBackgroundDrawable(new BitmapDrawable());
         setFocusable(true);
         mList.setLayoutManager(new LinearLayoutManager(mContext));
         mAdapter = new SpinnerAdapter(mContext, mDatas, true);
         mList.setAdapter(mAdapter);
-        setClippingEnabled(false);
     }
 
     public void setData(List<String> data) {
@@ -79,7 +80,8 @@ public class CSpinner extends PopupWindow {
     public boolean showDropDown(View view) {
         int viewWidth = view.getMeasuredWidth();
         setWidth(viewWidth + dp2px(mContext, 12));
-        showAsDropDown(view, -dp2px(mContext, 6), 0);
+        contentView.setTranslationX(-dp2px(mContext, 6));
+        showAsDropDown(view, 0, 0);
         return true;
     }
 
@@ -98,7 +100,7 @@ public class CSpinner extends PopupWindow {
 
     @Override
     public void showAsDropDown(View anchor, int xoff, int yoff) {
-        // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         Rect rect = new Rect();
         anchor.getGlobalVisibleRect(rect);
         int h = getDisplayHeight(mContext) - rect.bottom;
@@ -109,15 +111,15 @@ public class CSpinner extends PopupWindow {
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, h - 20);
                 params.height = h - 20;
                 mList.setLayoutParams(params);
-                //this.setHeight(h - 20);
+                this.setHeight(h - 20);
             } else {
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height);
                 params.height = height;
                 mList.setLayoutParams(params);
-                // this.setHeight(height);
+                this.setHeight(height);
             }
         });
-        // }
+//        }
         super.showAsDropDown(anchor, xoff, yoff);
     }
 
