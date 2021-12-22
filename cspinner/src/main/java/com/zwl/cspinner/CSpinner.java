@@ -81,6 +81,7 @@ public class CSpinner extends PopupWindow {
         int viewWidth = view.getMeasuredWidth();
         setWidth(viewWidth + dp2px(mContext, 12));
         contentView.setTranslationX(-dp2px(mContext, 6));
+
         showAsDropDown(view, 0, 0);
         return true;
     }
