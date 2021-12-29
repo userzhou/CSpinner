@@ -98,6 +98,10 @@ public class CSpinnerTextView extends TextView {
         return this;
     }
 
+    public int getChoosePosition() {
+        return mChoosePosition;
+    }
+
     public CSpinnerTextView setmDatas(List<String> datas) {
         this.mDatas = datas;
         mSpinner.setData(mDatas);
