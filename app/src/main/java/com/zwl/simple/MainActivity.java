@@ -3,6 +3,7 @@ package com.zwl.simple;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
 
 import com.zwl.cspinner.CSpinnerTextView;
 
@@ -22,14 +23,22 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < 20; i++) {
             mDatas.add("item: " + i);
         }
-        mSpinnerText.setmDatas(mDatas)
-                .setmChoosePosition(1)
-                .setmShowRightIcon(true)
-//                .setDrawableUp(R.mipmap.ic_launcher)
-//                .setDrawableDown(R.mipmap.ic_launcher)
-                .setOnSpinnerChoosedListener((position, content) -> {
+//        mSpinnerText.setmDatas(mDatas)
+//                .setmChoosePosition(1)
+//                .setmShowRightIcon(true)
+////                .setDrawableUp(R.mipmap.ic_launcher)
+////                .setDrawableDown(R.mipmap.ic_launcher)
+//                .setOnSpinnerChoosedListener((position, content) -> {
+//
+//                });
 
-        });
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mSpinnerText.setmDatas(mDatas);
+            }
+        }, 5000);
+
 
     }
 }

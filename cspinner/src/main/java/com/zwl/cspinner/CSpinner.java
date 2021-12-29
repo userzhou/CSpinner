@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
@@ -30,6 +31,7 @@ public class CSpinner extends PopupWindow {
     private boolean mShowRightIcon;
     private int mChoosedPosition;
     private int mRightIconRes = -1;
+    private View mTopView;
     private View contentView;
 
     public CSpinner(Context context) {
@@ -50,6 +52,11 @@ public class CSpinner extends PopupWindow {
     public CSpinner(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initView(context);
+    }
+
+    public CSpinner setTopView(View view) {
+        this.mTopView = view;
+        return this;
     }
 
     private void initView(Context context) {
@@ -77,7 +84,6 @@ public class CSpinner extends PopupWindow {
     }
 
 
-
     public boolean showDropDown(View view) {
         int viewWidth = view.getMeasuredWidth();
         setWidth(viewWidth + dp2px(mContext, 12));
@@ -99,27 +105,30 @@ public class CSpinner extends PopupWindow {
         return height;
     }
 
+    private void setViewHeight() {
+        Rect rect = new Rect();
+        mTopView.getGlobalVisibleRect(rect);
+        int h = getDisplayHeight(mContext) - rect.bottom;
+
+        int height = dp2px(mContext, 40) * mDatas.size();
+        if (height > (h - 20)) {
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, h - 20);
+            params.height = h - 20;
+            contentView.setLayoutParams(params);
+            this.setHeight(h - 20);
+        } else {
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, height);
+            params.height = height;
+            contentView.setLayoutParams(params);
+            this.setHeight(height);
+        }
+
+    }
+
     @Override
     public void showAsDropDown(View anchor, int xoff, int yoff) {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        Rect rect = new Rect();
-        anchor.getGlobalVisibleRect(rect);
-        int h = getDisplayHeight(mContext) - rect.bottom;
-
-        mList.post(() -> {
-            int height = mList.getHeight();
-            if (height > (h - 20)) {
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, h - 20);
-                params.height = h - 20;
-                mList.setLayoutParams(params);
-                this.setHeight(h - 20);
-            } else {
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height);
-                params.height = height;
-                mList.setLayoutParams(params);
-                this.setHeight(height);
-            }
-        });
+        setViewHeight();
 //        }
         super.showAsDropDown(anchor, xoff, yoff);
     }

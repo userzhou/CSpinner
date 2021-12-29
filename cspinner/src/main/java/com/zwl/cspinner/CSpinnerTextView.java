@@ -41,6 +41,7 @@ public class CSpinnerTextView extends TextView {
 
     private void init(Context context) {
         mSpinner = new CSpinner(context);
+        mSpinner.setTopView(this);
         mSpinner.setData(mDatas);
         setCompoundDrawablesWithIntrinsicBounds(0, 0, mDrawableDown, 0);
         initListener();
