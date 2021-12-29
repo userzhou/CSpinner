@@ -11,14 +11,14 @@
         android:background="#efefef" />
 
     <TextView
-        android:textColor="#454545"
-        android:textSize="14sp"
         android:id="@+id/tv_spinner_itemtext"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_toLeftOf="@+id/iv_spinner_itemicon"
         android:gravity="center_vertical"
-        android:text="1111" />
+        android:text="1111"
+        android:textColor="#454545"
+        android:textSize="14sp" />
 
     <ImageView
         android:id="@+id/iv_spinner_itemicon"

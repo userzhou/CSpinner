@@ -39,6 +39,7 @@ public class SpinnerAdapter extends RecyclerView.Adapter<SpinnerAdapter.SpinnerH
     @Override
     public void onBindViewHolder(@NonNull SpinnerHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.tvItemText.setText(mDatas.get(position));
+
         if (mShowChooseedIcon && mChoosedPosition == position) {
             if (rightIconRes != -1) {
                 holder.ivItemImage.setImageResource(rightIconRes);

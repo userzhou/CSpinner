@@ -2,12 +2,14 @@ package com.zwl.cspinner;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,8 +88,8 @@ public class CSpinner extends PopupWindow {
 
     public boolean showDropDown(View view) {
         int viewWidth = view.getMeasuredWidth();
-        setWidth(viewWidth + dp2px(mContext, 12));
-        contentView.setTranslationX(-dp2px(mContext, 6));
+        setWidth((int) (viewWidth + dp2px(12)));
+        contentView.setTranslationX(-dp2px(6));
         showAsDropDown(view, 0, 0);
         return true;
     }
@@ -109,8 +111,7 @@ public class CSpinner extends PopupWindow {
         Rect rect = new Rect();
         mTopView.getGlobalVisibleRect(rect);
         int h = getDisplayHeight(mContext) - rect.bottom;
-
-        int height = dp2px(mContext, 40) * mDatas.size();
+        int height = (int) ((int) (dp2px(40) * mDatas.size()) + dp2px(10));
         if (height > (h - 20)) {
             FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, h - 20);
             params.height = h - 20;
@@ -144,15 +145,10 @@ public class CSpinner extends PopupWindow {
     }
 
     /**
-     * 将dp转px
-     *
-     * @param context
-     * @param dpValue
-     * @return
+     * 根据手机的分辨率将dp转成为px。
      */
-    private int dp2px(Context context, float dpValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
+    private float dp2px(float dpValue) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, Resources.getSystem().getDisplayMetrics());
     }
 
     public void setmRightIconRes(int rightIconRes) {
