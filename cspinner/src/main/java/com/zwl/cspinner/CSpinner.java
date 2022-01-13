@@ -88,6 +88,12 @@ public class CSpinner extends PopupWindow {
     public boolean showDropDown(View view) {
         int viewWidth = mTopViewWidth;
         setWidth((int) (viewWidth + dp2px(12)));
+        boolean b = setViewHeight();
+        if (b) {
+            mList.setBackgroundResource(R.mipmap.shadow_popbacall);
+        } else {
+            mList.setBackgroundResource(R.mipmap.shadow_popbac);
+        }
         showAsDropDown(view, (int) -dp2px(6), (int) dp2px(3));
         return true;
     }
@@ -105,32 +111,32 @@ public class CSpinner extends PopupWindow {
         return height;
     }
 
-    private void setViewHeight() {
+    private boolean setViewHeight() {
+        boolean showAtTop = false;
         Rect rect = new Rect();
         mTopView.getGlobalVisibleRect(rect);
+        //text距离底部的高度
         int h = getDisplayHeight(mContext) - rect.bottom;
+        //list总高度
         int height = (int) ((int) (dp2px(40) * mDatas.size()) + dp2px(10));
+        int fheight;
+
         if (height > (h - 20)) {
-            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, h - 20);
-            params.height = h - 20;
-            contentView.setLayoutParams(params);
-            this.setHeight(h - 20);
+            fheight = h - 20;
         } else {
-            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, height);
-            params.height = height;
-            contentView.setLayoutParams(params);
-            this.setHeight(height);
+            fheight = height;
         }
-
+        if (fheight < mTopView.getMeasuredHeight() * 2) {
+            fheight = height < rect.top ? height : rect.top/2;
+            showAtTop = true;
+        }
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, fheight);
+        params.height = fheight;
+        contentView.setLayoutParams(params);
+        this.setHeight(fheight);
+        return showAtTop;
     }
 
-    @Override
-    public void showAsDropDown(View anchor, int xoff, int yoff) {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        setViewHeight();
-//        }
-        super.showAsDropDown(anchor, xoff, yoff);
-    }
 
     public void setmShowRightIcon(boolean showRightIcon) {
         this.mShowRightIcon = showRightIcon;

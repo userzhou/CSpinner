@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mSpinnerText = findViewById(R.id.spinner_textvre);
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 5; i++) {
             mDatas.add("item: " + i);
         }
         mSpinnerText.setmDatas(mDatas);

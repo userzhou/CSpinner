@@ -96,6 +96,9 @@ public class CSpinnerTextView extends TextView {
 
     private void initListener() {
         setOnClickListener(v -> {
+            if (mDatas.size() == 0) {
+                return;
+            }
             if (mSpinner.isShowing()) {
                 mSpinner.dismiss();
                 setCompoundDrawablesWithIntrinsicBounds(0, 0, mDrawableDown, 0);
