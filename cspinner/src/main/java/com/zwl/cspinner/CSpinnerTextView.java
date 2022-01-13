@@ -22,6 +22,7 @@ public class CSpinnerTextView extends TextView {
     private int mDrawableUp = R.mipmap.icon_select_up;
     private int mDrawableDown = R.mipmap.icon_select_down;
     private OnSpinnerChoosedListener onSpinnerChoosedListener;
+    private int mWidth, mHeight;
 
 
     public CSpinnerTextView(Context context) {
@@ -45,6 +46,52 @@ public class CSpinnerTextView extends TextView {
         mSpinner.setData(mDatas);
         setCompoundDrawablesWithIntrinsicBounds(0, 0, mDrawableDown, 0);
         initListener();
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int minWidth = getSuggestedMinimumWidth();
+        int minHeight = getSuggestedMinimumHeight();
+        mWidth = measureWidth(minWidth, widthMeasureSpec);
+        mSpinner.setTopWidth(mWidth);
+        mHeight = measureHeight(minHeight, heightMeasureSpec);
+        setMeasuredDimension(mWidth, mHeight);
+    }
+
+
+    private int measureWidth(int defaultWidth, int measureSpec) {
+        int specMode = MeasureSpec.getMode(measureSpec);
+        int specSize = MeasureSpec.getSize(measureSpec);
+        switch (specMode) {
+            case MeasureSpec.AT_MOST:
+                defaultWidth = getPaddingLeft() + getPaddingRight();
+                break;
+            case MeasureSpec.EXACTLY:
+                defaultWidth = specSize;
+                break;
+            case MeasureSpec.UNSPECIFIED:
+                defaultWidth = Math.max(defaultWidth, specSize);
+        }
+        return defaultWidth;
+    }
+
+    private int measureHeight(int defaultHeight, int measureSpec) {
+        int specMode = MeasureSpec.getMode(measureSpec);
+        int specSize = MeasureSpec.getSize(measureSpec);
+
+        switch (specMode) {
+            case MeasureSpec.AT_MOST:
+                defaultHeight = getPaddingTop() + getPaddingBottom();
+                break;
+            case MeasureSpec.EXACTLY:
+                defaultHeight = specSize;
+                break;
+            case MeasureSpec.UNSPECIFIED:
+                defaultHeight = Math.max(defaultHeight, specSize);
+                break;
+        }
+        return defaultHeight;
     }
 
     private void initListener() {

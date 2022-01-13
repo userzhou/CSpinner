@@ -19,10 +19,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mSpinnerText = findViewById(R.id.spinner_textvre);
-
         for (int i = 0; i < 3; i++) {
             mDatas.add("item: " + i);
         }
+        mSpinnerText.setmDatas(mDatas);
 //        mSpinnerText.setmDatas(mDatas)
 //                .setmChoosePosition(1)
 //                .setmShowRightIcon(true)
@@ -31,13 +31,6 @@ public class MainActivity extends AppCompatActivity {
 //                .setOnSpinnerChoosedListener((position, content) -> {
 //
 //                });
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mSpinnerText.setmDatas(mDatas);
-            }
-        }, 5000);
 
 
     }

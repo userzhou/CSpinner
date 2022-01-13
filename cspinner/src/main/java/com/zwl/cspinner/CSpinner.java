@@ -1,24 +1,17 @@
 package com.zwl.cspinner;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Build;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,6 +28,7 @@ public class CSpinner extends PopupWindow {
     private int mRightIconRes = -1;
     private View mTopView;
     private View contentView;
+    private int mTopViewWidth;
 
     public CSpinner(Context context) {
         super(context);
@@ -58,6 +52,11 @@ public class CSpinner extends PopupWindow {
 
     public CSpinner setTopView(View view) {
         this.mTopView = view;
+        return this;
+    }
+
+    public CSpinner setTopWidth(int width) {
+        mTopViewWidth = width;
         return this;
     }
 
@@ -87,10 +86,9 @@ public class CSpinner extends PopupWindow {
 
 
     public boolean showDropDown(View view) {
-        int viewWidth = view.getMeasuredWidth();
+        int viewWidth = mTopViewWidth;
         setWidth((int) (viewWidth + dp2px(12)));
-        contentView.setTranslationX(-dp2px(6));
-        showAsDropDown(view, 0, 0);
+        showAsDropDown(view, (int) -dp2px(6), (int) dp2px(3));
         return true;
     }
 
