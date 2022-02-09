@@ -123,13 +123,14 @@ public class CSpinner extends PopupWindow {
 
         if (height > (h - 20)) {
             fheight = h - 20;
+            if (fheight < mTopView.getMeasuredHeight() * 2) {
+                fheight = height < rect.top ? height : rect.top/2;
+                showAtTop = true;
+            }
         } else {
             fheight = height;
         }
-        if (fheight < mTopView.getMeasuredHeight() * 2) {
-            fheight = height < rect.top ? height : rect.top/2;
-            showAtTop = true;
-        }
+
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, fheight);
         params.height = fheight;
         contentView.setLayoutParams(params);
