@@ -87,14 +87,14 @@ public class CSpinner extends PopupWindow {
 
     public boolean showDropDown(View view) {
         int viewWidth = mTopViewWidth;
-        setWidth((int) (viewWidth + dp2px(12)));
+        setWidth((int) (viewWidth + dp2px(10)));
         boolean b = setViewHeight();
         if (b) {
             mList.setBackgroundResource(R.mipmap.shadow_popbacall);
         } else {
             mList.setBackgroundResource(R.mipmap.shadow_popbac);
         }
-        mList.setTranslationX( (int) -dp2px(6));
+        mList.setTranslationX( (int) -dp2px(5));
         showAsDropDown(view,0, (int) dp2px(3));
         return true;
     }
