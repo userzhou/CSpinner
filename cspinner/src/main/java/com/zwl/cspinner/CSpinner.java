@@ -94,7 +94,8 @@ public class CSpinner extends PopupWindow {
         } else {
             mList.setBackgroundResource(R.mipmap.shadow_popbac);
         }
-        showAsDropDown(view, (int) -dp2px(6), (int) dp2px(3));
+        mList.setTranslationX( (int) -dp2px(6));
+        showAsDropDown(view,0, (int) dp2px(3));
         return true;
     }
 
